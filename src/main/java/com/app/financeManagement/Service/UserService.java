@@ -2,9 +2,13 @@ package com.app.financeManagement.Service;
 
 import com.app.financeManagement.DTO.UserDTO;
 
+import java.util.List;
+
 public interface UserService {
 
     UserDTO findAllUsers();
+
+    List<UserDTO> getAllUsers();
 
     //UserDTO authenticateUser(String email, String password);
 
@@ -14,6 +18,7 @@ public interface UserService {
 
     UserDTO updateUser(Long userId, UserDTO userDTO);
 
-    void deleteUser(Long userId);
+    boolean deleteUser(Long userId);
 }
 
+//
