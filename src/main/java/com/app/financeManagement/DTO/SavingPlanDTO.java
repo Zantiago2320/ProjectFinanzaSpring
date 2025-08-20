@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class SavinPlanDTO {
+public class SavingPlanDTO {
     private long idSavingPlan;
     private String planName;
     private BigDecimal targetAmount;

@@ -1,14 +1,16 @@
 package com.app.financeManagement.Entity;
 
+import com.app.financeManagement.DTO.CapitalizationSettingsDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "CapitalizationSettings")
 @Data
-public class CapitalizationSettings {
+public abstract class CapitalizationSettings {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +29,13 @@ public class CapitalizationSettings {
     @Column(name = "update_at", nullable = false)
     private LocalDateTime updateAt;
 
+    public abstract CapitalizationSettingsDTO createCapitalizationSettings(CapitalizationSettingsDTO settingsDTO);
+
+    public abstract CapitalizationSettingsDTO getCapitalizationSettingsById(long id);
+
+    public abstract List<CapitalizationSettingsDTO> getAllCapitalizationSettings();
+
+    public abstract CapitalizationSettingsDTO updateCapitalizationSettings(long id, CapitalizationSettingsDTO settingsDTO);
+
+    public abstract void deleteCapitalizationSettings(long id);
 }

@@ -11,4 +11,8 @@ public class CapitalizationSettingsDTO {
     private String capitalizationFrequency;
     private LocalDateTime createdAt;
     private LocalDateTime updateAt;
+
+    public long getId() {
+        return idCapitalizationSettings;
+    }
 }

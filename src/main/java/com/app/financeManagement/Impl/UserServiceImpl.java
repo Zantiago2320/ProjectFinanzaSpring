@@ -1,5 +1,6 @@
 package com.app.financeManagement.Impl;
 
+import jakarta.persistence.*;
 import com.app.financeManagement.DTO.UserDTO;
 import com.app.financeManagement.Entity.User;
 import com.app.financeManagement.Repository.UserRepository;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @Service
 public class UserServiceImpl implements UserService {

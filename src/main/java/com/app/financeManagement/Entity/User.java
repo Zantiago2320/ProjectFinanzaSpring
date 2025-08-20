@@ -24,13 +24,13 @@ public class User {
     @Column(name = "password", nullable = false, unique = true, length = 100)
     private String password;
 
-    @Column(name = "role", nullable = false, unique = true, length = 50)
+    @Column(name = "role", nullable = false, length = 50)
     private String role;
 
-    @Column(name = "created_at", nullable = false, unique = true)
+    @Column(name = "created_at", nullable = true, unique = true)
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", nullable = false)
+    @Column(name = "update_at", nullable = true)
     private LocalDateTime updateAt;
 
 }

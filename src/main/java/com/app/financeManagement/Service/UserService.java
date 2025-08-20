@@ -20,5 +20,3 @@ public interface UserService {
 
     boolean deleteUser(Long userId);
 }
-
-//

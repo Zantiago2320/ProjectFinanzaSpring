@@ -10,7 +10,7 @@ public class TransactionDTO {
     private Long idTransaction;
     private long userId;
     private Category category;
-    private long type;
+    private String type;
     private Double amount;
     private String description;
     private LocalDateTime transactionDate;

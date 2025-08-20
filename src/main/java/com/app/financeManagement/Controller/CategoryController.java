@@ -3,12 +3,13 @@ package com.app.financeManagement.Controller;
 import com.app.financeManagement.DTO.CategoryDTO;
 import com.app.financeManagement.Service.CategoryService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController   
+@RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
 

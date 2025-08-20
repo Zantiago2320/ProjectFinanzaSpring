@@ -3,12 +3,13 @@ package com.app.financeManagement.Controller;
 import com.app.financeManagement.DTO.SavingMovementDTO;
 import com.app.financeManagement.Service.SavingMovementService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Service
 @RequestMapping("/api/savingmovements")
 public class SavingMovementServiceController {
 
