@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
@@ -24,8 +23,6 @@ public class CategoryServiceImpl implements CategoryService {
         this.modelMapper = modelMapper;
     }
 
-
-    @Override
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         if (!userRepository.existsById(categoryDTO.getUserId())) {
             throw new RuntimeException("User with ID " + categoryDTO.getUserId() + " does not exist.");
@@ -35,14 +32,12 @@ public class CategoryServiceImpl implements CategoryService {
         return modelMapper.map(category, CategoryDTO.class);
     }
 
-    @Override
     public CategoryDTO getCategoryById(long id) {
         var category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category with ID " + id + " does not exist."));
         return modelMapper.map(category, CategoryDTO.class);
     }
 
-    @Override
     public List<CategoryDTO> getAllCategories() {
         var categories = categoryRepository.findAll();
         return categories.stream()
@@ -50,20 +45,18 @@ public class CategoryServiceImpl implements CategoryService {
                 .collect(java.util.stream.Collectors.toList());
     }
 
-    @Override
-    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
+    public CategoryDTO updateCategory(long id, CategoryDTO categoryDTO) {
         var category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category with ID " + id + " does not exist."));
         category.setName(categoryDTO.getName());
-        category.setUserId(categoryDTO.getUserId());
         var updatedCategory = categoryRepository.save(category);
         return modelMapper.map(updatedCategory, CategoryDTO.class);
     }
 
-    @Override
-    public void deleteCategory(Long id) {
+    public void deleteCategory(long id) {
         if (!categoryRepository.existsById(id)) {
             throw new RuntimeException("Category with ID " + id + " does not exist.");
         }
         categoryRepository.deleteById(id);
     }
+}

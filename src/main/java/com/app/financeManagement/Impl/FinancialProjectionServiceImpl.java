@@ -22,21 +22,18 @@ public class FinancialProjectionServiceImpl implements FinancialProjectionServic
         this.modelMapper = modelMapper;
     }
 
-    @Override
     public FinancialProjectionDTO createFinancialProjection(FinancialProjectionDTO projectionDTO) {
         FinancialProjection projection = modelMapper.map(projectionDTO, FinancialProjection.class);
         projection = financialProjectionRepository.save(projection);
         return modelMapper.map(projection, FinancialProjectionDTO.class);
     }
 
-    @Override
     public FinancialProjectionDTO getFinancialProjectionById(long id) {
         FinancialProjection projection = financialProjectionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("FinancialProjection not found with id: " + id));
         return modelMapper.map(projection, FinancialProjectionDTO.class);
     }
 
-    @Override
     public List<FinancialProjectionDTO> getAllFinancialProjections() {
         List<FinancialProjection> projections = financialProjectionRepository.findAll();
         return projections.stream()
@@ -44,17 +41,18 @@ public class FinancialProjectionServiceImpl implements FinancialProjectionServic
                 .collect(java.util.stream.Collectors.toList());
     }
 
-    @Override
     public FinancialProjectionDTO updateFinancialProjection(long id, FinancialProjectionDTO projectionDTO) {
         FinancialProjection projection = financialProjectionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("FinancialProjection not found with id: " + id));
-        projection.setName(projectionDTO.getName());
-        projection.setAmount(projectionDTO.getAmount());
+        projection.setProjectedIncome(projectionDTO.getProjectedIncome());
+        projection.setProjectedExpenses(projectionDTO.getProjectedExpenses());
+        projection.setProjectionDate(projectionDTO.getProjectionDate());
+        projection.setCreatedAt(projectionDTO.getCreatedAt());
+        projection.setUpdateAt(projectionDTO.getUpdateAt());
         FinancialProjection updatedProjection = financialProjectionRepository.save(projection);
         return modelMapper.map(updatedProjection, FinancialProjectionDTO.class);
     }
 
-    @Override
     public void deleteFinancialProjection(long id) {
         if (!financialProjectionRepository.existsById(id)) {
             throw new RuntimeException("FinancialProjection not found with id: " + id);

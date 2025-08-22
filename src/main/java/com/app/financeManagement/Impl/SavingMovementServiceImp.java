@@ -22,21 +22,18 @@ public class SavingMovementServiceImp implements SavingMovementService {
         this.modelMapper = modelMapper;
     }
 
-    @Override
     public SavingMovementDTO createSavingMovement(SavingMovementDTO movementDTO) {
         SavingMovement movement = modelMapper.map(movementDTO, SavingMovement.class);
         movement = savingMovementRepository.save(movement);
         return modelMapper.map(movement, SavingMovementDTO.class);
     }
 
-    @Override
     public SavingMovementDTO getSavingMovementById(long id) {
         SavingMovement movement = savingMovementRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("SavingMovement not found with id: " + id));
         return modelMapper.map(movement, SavingMovementDTO.class);
     }
 
-    @Override
     public List<SavingMovementDTO> getAllSavingMovements() {
         List<SavingMovement> movements = savingMovementRepository.findAll();
         return movements.stream()
@@ -49,12 +46,14 @@ public class SavingMovementServiceImp implements SavingMovementService {
         SavingMovement movement = savingMovementRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("SavingMovement not found with id: " + id));
         movement.setAmount(movementDTO.getAmount());
-        movement.setDate(movementDTO.getDate());
+        movement.setMovementType(movementDTO.getMovementType());
+        movement.setMovementDate(movementDTO.getMovementDate());
+        movement.setCreatedAt(movementDTO.getCreatedAt());
+        movement.setUpdateAt(movementDTO.getUpdateAt());
         SavingMovement updatedMovement = savingMovementRepository.save(movement);
         return modelMapper.map(updatedMovement, SavingMovementDTO.class);
     }
 
-    @Override
     public void deleteSavingMovement(long id) {
         if (!savingMovementRepository.existsById(id)) {
             throw new RuntimeException("SavingMovement not found with id: " + id);

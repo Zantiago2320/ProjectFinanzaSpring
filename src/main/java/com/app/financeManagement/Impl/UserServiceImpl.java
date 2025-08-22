@@ -1,6 +1,6 @@
 package com.app.financeManagement.Impl;
 
-import jakarta.persistence.*;
+// import jakarta.persistence.*;
 import com.app.financeManagement.DTO.UserDTO;
 import com.app.financeManagement.Entity.User;
 import com.app.financeManagement.Repository.UserRepository;

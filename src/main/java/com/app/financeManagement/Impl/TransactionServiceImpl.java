@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+// import java.util.Optional;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -55,12 +55,12 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new RuntimeException("Transaction not found with id: " + transactionId));
         transaction.setAmount(transactionDTO.getAmount());
-        transaction.setDate(transactionDTO.getDate());
+        transaction.setDescription(transactionDTO.getDescription());
+        transaction.setTransactionDate(transactionDTO.getTransactionDate());
         Transaction updatedTransaction = transactionRepository.save(transaction);
         return modelMapper.map(updatedTransaction, TransactionDTO.class);
     }
 
-    @Override
     public boolean deleteTransaction(Long transactionId) {
         if (!transactionRepository.existsById(transactionId)) {
             throw new RuntimeException("Transaction not found with id: " + transactionId);
