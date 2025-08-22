@@ -21,7 +21,7 @@ public class Transaction {
 
     // Relación Muchos a Uno: Muchas transacciones pueden tener una categoría
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "id_category", nullable = false)
     private Category category;
 
     // Tipo de transacción: INCOME, EXPENSE, etc.
@@ -43,9 +43,9 @@ public class Transaction {
     }
 
     // Constructor con parámetros principales
-    public Transaction(User user, Category category, TransactionType type, Double amount, String description) {
+    public Transaction(User user, Category idCategory, TransactionType type, Double amount, String description) {
         this.user = user;
-        this.category = category;
+        this.category = idCategory;
         this.type = type;
         this.amount = amount;
         this.description = description;
