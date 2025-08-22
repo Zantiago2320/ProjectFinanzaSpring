@@ -13,53 +13,57 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+    private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+
     @Autowired
-    public CategoryServiceImpl(ModelMapper modelMapper, UserRepository userRepository, CategoryRepository categoryRepository) {
-        this.modelMapper = modelMapper;
-        this.userRepository = userRepository;
+    public CategoryServiceImpl(CategoryRepository categoryRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.categoryRepository = categoryRepository;
-    }
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    public CategoryServiceImpl() {
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
     }
 
 
     @Override
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
-        // Check if the user exists
-        if (userRepository.existsById(categoryDTO.getUserId())) {
-            return null;
+        if (!userRepository.existsById(categoryDTO.getUserId())) {
+            throw new RuntimeException("User with ID " + categoryDTO.getUserId() + " does not exist.");
         }
-        throw new RuntimeException("User with ID " + categoryDTO.getUserId() + " does not exist.");
+        var category = modelMapper.map(categoryDTO, com.app.financeManagement.Entity.Category.class);
+        category = categoryRepository.save(category);
+        return modelMapper.map(category, CategoryDTO.class);
     }
 
     @Override
     public CategoryDTO getCategoryById(long id) {
-        // Check if the category exists
-        if (!categoryRepository.existsById(id)) {
-            throw new RuntimeException("Category with ID " + id + " does not exist.");
-        }
-        // Fetch the category and convert it to DTO
-        return null;
+        var category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category with ID " + id + " does not exist."));
+        return modelMapper.map(category, CategoryDTO.class);
     }
 
     @Override
     public List<CategoryDTO> getAllCategories() {
-        return categoryRepository.findAll().stream()
+        var categories = categoryRepository.findAll();
+        return categories.stream()
                 .map(category -> modelMapper.map(category, CategoryDTO.class))
-                .toList();
+                .collect(java.util.stream.Collectors.toList());
     }
 
     @Override
     public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
-        // Implementation logic here
-        return null;
+        var category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category with ID " + id + " does not exist."));
+        category.setName(categoryDTO.getName());
+        category.setUserId(categoryDTO.getUserId());
+        var updatedCategory = categoryRepository.save(category);
+        return modelMapper.map(updatedCategory, CategoryDTO.class);
     }
 
     @Override
     public void deleteCategory(Long id) {
-        // Implementation logic here
+        if (!categoryRepository.existsById(id)) {
+            throw new RuntimeException("Category with ID " + id + " does not exist.");
+        }
+        categoryRepository.deleteById(id);
     }

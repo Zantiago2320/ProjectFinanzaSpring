@@ -1,8 +1,8 @@
 package com.app.financeManagement.Impl;
 
 import com.app.financeManagement.DTO.FinancialProjectionDTO;
-import com.app.financeManagement.Repository.CategoryRepository;
-import com.app.financeManagement.Repository.UserRepository;
+import com.app.financeManagement.Repository.FinancialProjectionRepository;
+import com.app.financeManagement.Entity.FinancialProjection;
 import com.app.financeManagement.Service.FinancialProjectionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,37 +13,52 @@ import java.util.List;
 @Service
 public class FinancialProjectionServiceImpl implements FinancialProjectionService {
 
+    private final FinancialProjectionRepository financialProjectionRepository;
+    private final ModelMapper modelMapper;
+
     @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private UserRepository userRepository;
-    public FinancialProjectionServiceImpl(ModelMapper modelMapper, UserRepository userRepository) {
+    public FinancialProjectionServiceImpl(FinancialProjectionRepository financialProjectionRepository, ModelMapper modelMapper) {
+        this.financialProjectionRepository = financialProjectionRepository;
         this.modelMapper = modelMapper;
-        this.userRepository = userRepository;
     }
 
     @Override
     public FinancialProjectionDTO createFinancialProjection(FinancialProjectionDTO projectionDTO) {
-        return null;
+        FinancialProjection projection = modelMapper.map(projectionDTO, FinancialProjection.class);
+        projection = financialProjectionRepository.save(projection);
+        return modelMapper.map(projection, FinancialProjectionDTO.class);
     }
 
     @Override
     public FinancialProjectionDTO getFinancialProjectionById(long id) {
-        return null;
+        FinancialProjection projection = financialProjectionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("FinancialProjection not found with id: " + id));
+        return modelMapper.map(projection, FinancialProjectionDTO.class);
     }
 
     @Override
     public List<FinancialProjectionDTO> getAllFinancialProjections() {
-        return List.of();
+        List<FinancialProjection> projections = financialProjectionRepository.findAll();
+        return projections.stream()
+                .map(projection -> modelMapper.map(projection, FinancialProjectionDTO.class))
+                .collect(java.util.stream.Collectors.toList());
     }
 
     @Override
     public FinancialProjectionDTO updateFinancialProjection(long id, FinancialProjectionDTO projectionDTO) {
-        return null;
+        FinancialProjection projection = financialProjectionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("FinancialProjection not found with id: " + id));
+        projection.setName(projectionDTO.getName());
+        projection.setAmount(projectionDTO.getAmount());
+        FinancialProjection updatedProjection = financialProjectionRepository.save(projection);
+        return modelMapper.map(updatedProjection, FinancialProjectionDTO.class);
     }
 
     @Override
     public void deleteFinancialProjection(long id) {
-
+        if (!financialProjectionRepository.existsById(id)) {
+            throw new RuntimeException("FinancialProjection not found with id: " + id);
+        }
+        financialProjectionRepository.deleteById(id);
     }
 }

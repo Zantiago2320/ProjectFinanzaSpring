@@ -33,12 +33,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionDTO getTransactionById(Long transactionId) {
-        Optional<Transaction> transactionOptional = transactionRepository.findById(transaction Id);
-        if (transactionOptional.isPresent()) {
-            Transaction transaction = transactionOptional.get();
-            return modelMapper.map(transaction, TransactionDTO.class);
-        }
-        return null;
+        Transaction transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new RuntimeException("Transaction not found with id: " + transactionId));
+        return modelMapper.map(transaction, TransactionDTO.class);
     }
 
     @Override
@@ -55,11 +52,20 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionDTO updateTransaction(Long transactionId, TransactionDTO transactionDTO) {
-        return null;
+        Transaction transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new RuntimeException("Transaction not found with id: " + transactionId));
+        transaction.setAmount(transactionDTO.getAmount());
+        transaction.setDate(transactionDTO.getDate());
+        Transaction updatedTransaction = transactionRepository.save(transaction);
+        return modelMapper.map(updatedTransaction, TransactionDTO.class);
     }
 
     @Override
     public boolean deleteTransaction(Long transactionId) {
-        return false;
+        if (!transactionRepository.existsById(transactionId)) {
+            throw new RuntimeException("Transaction not found with id: " + transactionId);
+        }
+        transactionRepository.deleteById(transactionId);
+        return true;
     }
 }
