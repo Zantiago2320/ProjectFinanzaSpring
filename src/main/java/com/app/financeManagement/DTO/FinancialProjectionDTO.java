@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class FinancialProjectionDTO {
-    private long idFinancialProjection;
+    private Long idFinancialProjection;
     private BigDecimal projectedIncome;
     private BigDecimal projectedExpenses;
     private LocalDateTime projectionDate;

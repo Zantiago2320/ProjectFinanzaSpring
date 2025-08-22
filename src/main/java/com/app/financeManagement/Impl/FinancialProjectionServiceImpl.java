@@ -28,7 +28,8 @@ public class FinancialProjectionServiceImpl implements FinancialProjectionServic
         return modelMapper.map(projection, FinancialProjectionDTO.class);
     }
 
-    public FinancialProjectionDTO getFinancialProjectionById(long id) {
+
+    public FinancialProjectionDTO getFinancialProjectionById(Long id) {
         FinancialProjection projection = financialProjectionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("FinancialProjection not found with id: " + id));
         return modelMapper.map(projection, FinancialProjectionDTO.class);
@@ -41,7 +42,7 @@ public class FinancialProjectionServiceImpl implements FinancialProjectionServic
                 .collect(java.util.stream.Collectors.toList());
     }
 
-    public FinancialProjectionDTO updateFinancialProjection(long id, FinancialProjectionDTO projectionDTO) {
+    public FinancialProjectionDTO updateFinancialProjection(Long id, FinancialProjectionDTO projectionDTO) {
         FinancialProjection projection = financialProjectionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("FinancialProjection not found with id: " + id));
         projection.setProjectedIncome(projectionDTO.getProjectedIncome());
@@ -53,7 +54,7 @@ public class FinancialProjectionServiceImpl implements FinancialProjectionServic
         return modelMapper.map(updatedProjection, FinancialProjectionDTO.class);
     }
 
-    public void deleteFinancialProjection(long id) {
+    public void deleteFinancialProjection(Long id) {
         if (!financialProjectionRepository.existsById(id)) {
             throw new RuntimeException("FinancialProjection not found with id: " + id);
         }

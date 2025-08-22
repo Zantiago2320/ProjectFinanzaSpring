@@ -13,7 +13,7 @@ public class SavinPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ide_saving_plan", nullable = false, unique = true)
-    private long idSavingPlan;
+    private Long idSavingPlan;
 
     @Column(name = "plan_name", nullable = false, length = 100)
     private String planName;

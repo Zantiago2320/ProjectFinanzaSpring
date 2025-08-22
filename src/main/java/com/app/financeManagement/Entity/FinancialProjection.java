@@ -13,7 +13,7 @@ public class FinancialProjection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ide_financial_projection", nullable = false, unique = true)
-    private long idFinancialProjection;
+    private Long idFinancialProjection;
 
     @Column(name = "projected_income", nullable = false)
     private BigDecimal projectedIncome;

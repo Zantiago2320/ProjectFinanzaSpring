@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface SavingMovementService {
     SavingMovementDTO createSavingMovement(SavingMovementDTO movementDTO);
-    SavingMovementDTO getSavingMovementById(long id);
+    SavingMovementDTO getSavingMovementById(Long id);
     List<SavingMovementDTO> getAllSavingMovements();
-    SavingMovementDTO updateSavingMovement(long id, SavingMovementDTO movementDTO);
-    void deleteSavingMovement(long id);
+    SavingMovementDTO updateSavingMovement(Long id, SavingMovementDTO movementDTO);
+    void deleteSavingMovement(Long id);
 }

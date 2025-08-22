@@ -1,7 +1,9 @@
 package com.app.financeManagement.Impl;
 
 import com.app.financeManagement.DTO.TransactionDTO;
+import com.app.financeManagement.Entity.Category;
 import com.app.financeManagement.Entity.Transaction;
+import com.app.financeManagement.Repository.CategoryRepository;
 import com.app.financeManagement.Repository.TransactionRepository;
 import com.app.financeManagement.Service.TransactionService;
 import org.modelmapper.ModelMapper;
@@ -15,18 +17,26 @@ import java.util.List;
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
+    @Autowired
+    private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public TransactionServiceImpl(TransactionRepository transactionRepository, ModelMapper modelMapper) {
+    public TransactionServiceImpl(TransactionRepository transactionRepository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
         this.transactionRepository = transactionRepository;
+        this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
 
     }
 
-    @Override
+    // TransactionServiceImpl.java
     public TransactionDTO createTransaction(TransactionDTO transactionDTO) {
+        Category category = categoryRepository.findById(transactionDTO.getIdCategory())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
         Transaction transaction = modelMapper.map(transactionDTO, Transaction.class);
+        transaction.setCategory(category);
+
         Transaction savedTransaction = transactionRepository.save(transaction);
         return modelMapper.map(savedTransaction, TransactionDTO.class);
     }

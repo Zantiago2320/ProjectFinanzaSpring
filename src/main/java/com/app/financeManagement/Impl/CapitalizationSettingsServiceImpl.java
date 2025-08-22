@@ -32,22 +32,17 @@ public class CapitalizationSettingsServiceImpl implements CapitalizationSettings
     }
 
     @Override
-    public CapitalizationSettingsDTO getCapitalizationSettingsById(long id) {
-        return fakeDb.stream()
-                .filter(s -> s.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Not found"));
+    public CapitalizationSettingsDTO getCapitalizationSettingsById(Long id) {
+        return null;
     }
 
     @Override
-    public CapitalizationSettingsDTO updateCapitalizationSettings(long id, CapitalizationSettingsDTO dto) {
-        deleteCapitalizationSettings(id);
-        fakeDb.add(dto);
-        return dto;
+    public CapitalizationSettingsDTO updateCapitalizationSettings(Long id, CapitalizationSettingsDTO dto) {
+        return null;
     }
 
     @Override
-    public void deleteCapitalizationSettings(long id) {
-        fakeDb.removeIf(s -> s.getId() == id);
+    public void deleteCapitalizationSettings(Long id) {
+
     }
 }

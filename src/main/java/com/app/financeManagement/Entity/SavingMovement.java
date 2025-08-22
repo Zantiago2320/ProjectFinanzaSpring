@@ -13,7 +13,7 @@ public class SavingMovement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ide_saving_movement", nullable = false, unique = true)
-    private long idSavingMovement;
+    private Long idSavingMovement;
 
     @Column(name = "amount", nullable = false)
     private BigDecimal amount;

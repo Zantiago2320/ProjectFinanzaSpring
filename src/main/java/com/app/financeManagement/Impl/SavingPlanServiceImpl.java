@@ -30,7 +30,7 @@ public class SavingPlanServiceImpl implements SavingPlanService {
     }
 
     @Override
-    public SavingPlanDTO getSavingPlanById(long id) {
+    public SavingPlanDTO getSavingPlanById(Long id) {
         SavinPlan plan = savingPlanRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("SavingPlan not found with id: " + id));
         return modelMapper.map(plan, SavingPlanDTO.class);
@@ -44,8 +44,9 @@ public class SavingPlanServiceImpl implements SavingPlanService {
                 .collect(java.util.stream.Collectors.toList());
     }
 
+
     @Override
-    public SavingPlanDTO updateSavingPlan(long id, SavingPlanDTO planDTO) {
+    public SavingPlanDTO updateSavingPlan(Long id, SavingPlanDTO planDTO) {
         SavinPlan plan = savingPlanRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("SavingPlan not found with id: " + id));
         plan.setPlanName(planDTO.getPlanName());
@@ -57,7 +58,7 @@ public class SavingPlanServiceImpl implements SavingPlanService {
         return modelMapper.map(updatedPlan, SavingPlanDTO.class);
     }
 
-    public void deleteSavingPlan(long id) {
+    public void deleteSavingPlan(Long id) {
         if (!savingPlanRepository.existsById(id)) {
             throw new RuntimeException("SavingPlan not found with id: " + id);
         }

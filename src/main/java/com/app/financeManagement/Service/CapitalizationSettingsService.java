@@ -7,7 +7,7 @@ import java.util.List;
 public interface CapitalizationSettingsService {
     List<CapitalizationSettingsDTO> getAllCapitalizationSettings();
     CapitalizationSettingsDTO createCapitalizationSettings(CapitalizationSettingsDTO dto);
-    CapitalizationSettingsDTO getCapitalizationSettingsById(long id);
-    CapitalizationSettingsDTO updateCapitalizationSettings(long id, CapitalizationSettingsDTO dto);
-    void deleteCapitalizationSettings(long id);
+    CapitalizationSettingsDTO getCapitalizationSettingsById(Long id);
+    CapitalizationSettingsDTO updateCapitalizationSettings(Long id, CapitalizationSettingsDTO dto);
+    void deleteCapitalizationSettings(Long id);
 }

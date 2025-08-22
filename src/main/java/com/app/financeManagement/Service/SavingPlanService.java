@@ -10,11 +10,11 @@ public interface SavingPlanService {
 
     SavingPlanDTO createSavingPlan(SavingPlanDTO planDTO);
 
-    SavingPlanDTO getSavingPlanById(long id);
+    SavingPlanDTO getSavingPlanById(Long id);
 
     List<SavingPlanDTO> getAllSavingPlans();
 
-    SavingPlanDTO updateSavingPlan(long id, SavingPlanDTO planDTO);
+    SavingPlanDTO updateSavingPlan(Long id, SavingPlanDTO planDTO);
 
-    void deleteSavingPlan(long id);
+    void deleteSavingPlan(Long id);
 }

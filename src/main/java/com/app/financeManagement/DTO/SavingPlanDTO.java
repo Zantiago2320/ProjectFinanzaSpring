@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class SavingPlanDTO {
-    private long idSavingPlan;
+    private Long idSavingPlan;
     private String planName;
     private BigDecimal targetAmount;
     private int durationMonths;

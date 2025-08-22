@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class SavingMovementDTO {
-    private long idSavingMovement;
+    private Long idSavingMovement;
     private BigDecimal amount;
     private String movementType; // Puede ser "DEPOSIT" o "WITHDRAWAL"
     private LocalDateTime movementDate;

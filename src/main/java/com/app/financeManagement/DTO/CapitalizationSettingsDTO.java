@@ -6,13 +6,15 @@ import lombok.Data;
 
 @Data
 public class CapitalizationSettingsDTO {
-    private long idCapitalizationSettings;
+    private Long idCapitalizationSettings;
+    //recordar poner el id del usuario que lo creo
+    //private Long userId;
     private BigDecimal interestRate;
     private String capitalizationFrequency;
     private LocalDateTime createdAt;
     private LocalDateTime updateAt;
 
-    public long getId() {
+    public Long getId() {
         return idCapitalizationSettings;
     }
 }
